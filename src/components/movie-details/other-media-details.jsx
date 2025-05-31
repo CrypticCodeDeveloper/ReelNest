@@ -5,7 +5,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 
 const OtherMediaDetails = ({otherDetails, credits, production_companies}) => {
     return (
-    <div className="mt-4 flex gap-14 max-xl:gap-9">
+    <div className="mt-4 flex gap-14 max-xl:gap-9 max-sm:grid grid-cols-2">
         <div>
             <h2 className="text-xl max-xl:text-lg">Details</h2>
             <div className="text-sm mt-3 space-y-2">

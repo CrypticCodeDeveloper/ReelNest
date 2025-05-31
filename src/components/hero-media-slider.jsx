@@ -38,7 +38,7 @@ const HeroMediaSlider = () => {
 
 
     return (
-        <div className="max-h-screen bg-black select-none">
+        <div className="max-h-screen max-sm:max-h-[60vh] bg-black select-none">
 
             {/*Trailer Popup*/}
             {isTrailerPopupOpen && <TrailerPopup title={`Play Trailer - ${movieTitle}`}/>}
@@ -53,7 +53,7 @@ const HeroMediaSlider = () => {
                 scrollbar={{ draggable: true }}
                 // onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={() => console.log('slide change')}
-                className="h-screen"
+                className="max-sm:h-[60vh]"
             >
                 {
                     movies.map((movie) => {

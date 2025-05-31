@@ -40,7 +40,7 @@
 .swiper-button-prev,
 
 .swiper-button-next{
-    @apply !text-primary !font-semibold !text-sm max-lg:!hidden ;
+    @apply !text-primary !font-semibold !text-sm  ;
 }
 .swiper-pagination-bullet-active{
     @apply !bg-primary

@@ -112,7 +112,7 @@ const MediaDetails = () => {
                                 {/**/}
                                 <div
                                     className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-3">
-                                    <p>{(vote_average / 2).toFixed(2)} / 5</p>
+                                    <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} / 5</p>
                                     <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
                                     {/* genres */}
                                     <div className="text-xs flex items-center gap-4">

@@ -15,7 +15,7 @@ const Search = () => {
 
                 {isOpen &&
                     <input type="text" placeholder="movies, shows, people ... "
-                           className="focus:outline-none placeholder:text-gray-100 text-xs sm:text-sm"/>}
+                           className="focus:outline-none placeholder:text-gray-100 text-xs sm:text-sm max-sm:max-w-[70px]"/>}
 
                 <CiSearch className="size-5"/>
 
