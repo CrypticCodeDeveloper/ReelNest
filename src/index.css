@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+@import "tailwindcss";
+
+@theme inline {
+    --color-primary: /* red 600 */ #e63946;
+    --color-primary-alt: /* red 900 */ #7f1d1d;
+    --color-primary-hover: /* red 700 */ #d62839;
+    --color-gray-black: #242424;
+    --font-medieval-sharp: "MedievalSharp";
+}
+
+@layer base {
+    body{
+        @apply bg-black text-white;
+    }
+    h1,h2{
+        @apply max-xl:text-xl max-md:text-lg max-sm:text-sm;
+    }
+}
+
+@layer components {
+    .btn{
+        @apply bg-primary hover:bg-primary-hover transition-all text-sm sm:text-lg lg:text-xl h-[40px] sm:h-[50px] px-3 flex items-center text-white shadow-md
+        ;
+    }
+}
+
+
+@layer utilities {
+    .flex-center {
+        @apply flex items-center justify-center;
+    }
+    .flex-between{
+        @apply flex items-center justify-between;
+    }
+    .glass{
+        @apply bg-white/10 backdrop-blur-md border border-white/20;
+    }
+}
+.swiper-button-prev,
+
+.swiper-button-next{
+    @apply !text-primary !font-semibold !text-sm max-lg:!hidden ;
+}
+.swiper-pagination-bullet-active{
+    @apply !bg-primary
+}
