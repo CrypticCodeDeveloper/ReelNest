@@ -6,7 +6,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 import {useSuspenseQuery} from "@tanstack/react-query";
-import {getDiscoverMovies} from "../api.js";
+import {getDiscoverMovies, getMediaVideos} from "../api.js";
 import StarRate from "./star-rate.jsx";
 
 import { FaPlay, FaRegBookmark  } from "react-icons/fa";
@@ -17,6 +17,8 @@ import TrailerPopup from "./trailer-popup.jsx";
 
 import {useState} from "react";
 import {useMediaQuery} from "react-responsive"
+import toast from "react-hot-toast";
+
 
 const HeroMediaSlider = () => {
 
@@ -27,7 +29,7 @@ const HeroMediaSlider = () => {
         maxWidth: 768,
     })
 
-
+    const [trailerKey, setTrailerKey] = useState(null);
     const [movieTitle, setMovieTitle] = useState(null);
 
     const {data: movies} = useSuspenseQuery({
@@ -36,12 +38,13 @@ const HeroMediaSlider = () => {
         select: (data) => data.results
     })
 
-
     return (
         <div className="max-h-screen max-sm:max-h-[60vh] bg-black select-none">
 
             {/*Trailer Popup*/}
-            {isTrailerPopupOpen && <TrailerPopup title={`Play Trailer - ${movieTitle}`}/>}
+            {isTrailerPopupOpen && <TrailerPopup
+                videoKey={trailerKey}
+                title={`Play Trailer - ${movieTitle}`}/>}
 
             {/* Hero Slider */}
             <Swiper
@@ -53,7 +56,7 @@ const HeroMediaSlider = () => {
                 scrollbar={{ draggable: true }}
                 // onSwiper={(swiper) => console.log(swiper)}
                 // onSlideChange={() => console.log('slide change')}
-                className="max-sm:h-[60vh]"
+                className="h-screen max-sm:h-[60vh]"
             >
                 {
                     movies.map((movie) => {
@@ -93,7 +96,19 @@ const HeroMediaSlider = () => {
                                         <div className="flex items-center">
                                             <button
                                                 className="btn bg-green-800"
-                                                onClick={() => {
+                                                onClick={async () => {
+                                                    //  Fetch the videos and get the trailer key
+                                                    const response = await getMediaVideos('movie', id);
+                                                    const videos = response.results;
+                                                    const trailerKey = videos.find(video => video.name.toLowerCase().includes("trailer"))?.key || videos[0]?.key;
+
+                                                    if (!trailerKey) {
+                                                        toast.error("No trailer found for this movie.");
+                                                        return;
+                                                    } else {
+                                                        setTrailerKey(trailerKey);
+                                                    }
+
                                                     setMovieTitle(original_title)
                                                     setIsTrailerPopupOpen(true)
                                                 }}
