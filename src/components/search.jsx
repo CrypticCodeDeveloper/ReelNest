@@ -11,6 +11,11 @@ const Search = () => {
 
     const searchRef = useRef(null);
 
+    const searchMedia = () => {
+        navigate(`/search?search=${searchRef.current.value}`)
+        searchRef.current.value = ""
+    }
+
     return (
         <div className="flex items-center gap-3">
             <div
@@ -21,9 +26,9 @@ const Search = () => {
                 {isOpen &&
                     <input type="text" placeholder="movies, shows, people ... "
                            ref={searchRef}
-                           className="focus:outline-none placeholder:text-gray-100 text-xs sm:text-sm max-sm:max-w-[70px]"/>}
+                           className="focus:outline-none placeholder:text-gray-400 text-xs sm:text-sm max-sm:max-w-[70px]"/>}
 
-                <CiSearch className="size-5" onClick={() => isOpen && navigate(`/search?search=${searchRef.current.value}`)}/>
+                <CiSearch className="size-5" onClick={() => isOpen && searchMedia()}/>
 
             </div>
             {isOpen && <CiCircleRemove
