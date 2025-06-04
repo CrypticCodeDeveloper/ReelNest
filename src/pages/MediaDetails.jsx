@@ -70,192 +70,197 @@ const MediaDetails = () => {
 
     return (
         <>
-        <div className="min-h-screen w-full flex-center pb-5 relative">
-            {/*Trailer Popup*/}
-            {isTrailerPopupOpen && trailerKey && <TrailerPopup
-                videoKey={trailerKey}
-                title={`${mediaType === "movie" ? "Movie" : "TV"} Trailer - ${title}`}/>}
+            <div className="min-h-screen w-full flex-center pb-5 relative">
+                {/*Trailer Popup*/}
+                {isTrailerPopupOpen && trailerKey && <TrailerPopup
+                    videoKey={trailerKey}
+                    title={`${mediaType === "movie" ? "Movie" : "TV"} Trailer - ${title}`}/>}
 
-            {/*   Backdrop section*/}
-            <MediaBackdrop
-                backdrop_path={backdrop_path}
-                title={title}
-                playTrailer={() => {
-                    if (trailerKey) {
-                        setIsTrailerPopupOpen(true)
-                    } else {
-                        toast.error("Trailer is not available for this media.")
-                    }
-                }}/>
-            {/*    section ended*/}
+                {/*   Backdrop section*/}
+                <MediaBackdrop
+                    backdrop_path={backdrop_path}
+                    title={title}
+                    playTrailer={() => {
+                        if (trailerKey) {
+                            setIsTrailerPopupOpen(true)
+                        } else {
+                            toast.error("Trailer is not available for this media.")
+                        }
+                    }}/>
+                {/*    section ended*/}
 
-            {/*    Details*/}
-            <div className="w-[80%]  mt-[40vh]">
+                {/*    Details*/}
+                <div className="w-[80%]  mt-[40vh]">
 
-                <div className="border-b border-neutral-300 w-full flex-between pb-3">
-                    <h1
-                        className="text-2xl font-medieval-sharp"
-                    >{title} ({release_date.split('-')[0]})</h1>
-                </div>
+                    <div className="border-b border-neutral-300 w-full flex-between pb-3">
+                        <h1
+                            className="text-2xl font-medieval-sharp"
+                        >{title} ({release_date.split('-')[0]})</h1>
+                    </div>
 
-                <div className="mt-4 flex gap-5 max-lg:flex-col">
+                    <div className="mt-4 flex gap-5 max-lg:flex-col">
 
-                    <PosterActions poster_path={poster_path}/>
+                        <PosterActions poster_path={poster_path}/>
 
-                    <div className="w-full">
-                        {/*    More media info */}
-                        <section className="flex max-sm:flex-col w-full justify-between gap-6 border-b border-neutral-400 pb-5">
+                        <div className="w-full">
+                            {/*    More media info */}
+                            <section
+                                className="flex max-sm:flex-col w-full justify-between gap-6 border-b border-neutral-400 pb-5">
 
-                            <div>
-                                <h1 className="text-2xl font-medieval-sharp">{title}
-                                    {
-                                        mediaType === "tv" && (
-                                            <div
-                                                className="text-xs flex items-center gap-4 border-l
-                                                 px-4 border-neutral-500">
-                                                <p>{seriesStatus}</p>
-                                            </div>
-                                        )
-                                    }
-                                </h1>
-                                <p className="text-sm  text-neutral-200 mt-2">{tagline}</p>
-
-                                {/**/}
-                                <div
-                                    className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-4">
-                                    <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} </p>
-                                    <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
-                                    {/* genres */}
-                                    <div className="text-xs flex items-center gap-4">
+                                <div>
+                                    <h1 className="text-2xl font-medieval-sharp">{title}
                                         {
-                                            genres.slice(0, 2).map((genre, index) => (
-                                                <span key={index} >{genre.name}</span>
-                                            ))
+                                            mediaType === "tv" && (
+                                                <div
+                                                    className="text-xs flex items-center gap-4 border-l
+                                                 px-4 border-neutral-500">
+                                                    <p>{seriesStatus}</p>
+                                                </div>
+                                            )
                                         }
+                                    </h1>
+                                    <p className="text-sm  text-neutral-200 mt-2">{tagline}</p>
+
+                                    {/**/}
+                                    <div
+                                        className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-4">
+                                        <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} </p>
+                                        <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
+                                        {/* genres */}
+                                        <div className="text-xs flex items-center gap-4">
+                                            {
+                                                genres.slice(0, 2).map((genre, index) => (
+                                                    <span key={index}>{genre.name}</span>
+                                                ))
+                                            }
+                                        </div>
+                                        {/*    genres end*/}
+                                        {/* Tv show stats   */}
+
                                     </div>
-                                    {/*    genres end*/}
-                                    {/* Tv show stats   */}
+
+                                    {/* Other movie details - casts, production companies ...    */}
+                                    <OtherMediaDetails
+                                        otherDetails={otherDetails}
+                                        credits={credits}
+                                        production_companies={production_companies}
+                                    />
 
                                 </div>
 
-                                {/* Other movie details - casts, production companies ...    */}
-                                <OtherMediaDetails
-                                    otherDetails={otherDetails}
-                                    credits={credits}
-                                    production_companies={production_companies}
-                                />
+                                {/*Gallery - Media images*/}
+                                {
+                                    images.backdrops.length > 0 && <Gallery images={images.backdrops}/>
+                                }
+                            </section>
+                            {/*  More media info ends  */}
+
+                            <div className="mt-5">
+
+                                <h2 className="text-2xl font-medieval-sharp">Storyline</h2>
+                                <p className="mt-4 text-neutral-400 max-lg:text-sm">
+                                    {overview ? overview : "No storyline available for this media."}
+                                </p>
 
                             </div>
-
-                            {/*Gallery - Media images*/}
-                            {
-                                images.backdrops.length > 0 && <Gallery images={images.backdrops}/>
-                            }
-                        </section>
-                        {/*  More media info ends  */}
-
-                        <div className="mt-5">
-
-                            <h2 className="text-2xl font-medieval-sharp">Storyline</h2>
-                            <p className="mt-4 text-neutral-400 max-lg:text-sm">
-                                {overview ? overview : "No storyline available for this media."}
-                            </p>
-
                         </div>
+
                     </div>
 
+
+                    {/*Extra information about shows */}
+                    {
+                        mediaType === "tv" && (
+                            <div className="mt-12 flex items-center gap-8 pb-5 overflow-x-auto">
+
+                                {/*Card - Current Season */}
+                                {last_season && <EpisodeSeasonCard
+                                    title="Current Season"
+                                    type="season"
+                                    image={last_season.poster_path}
+                                    name={last_season.name}
+                                    poster_path={poster_path}
+                                    date={last_season.air_date}
+                                    number={last_season.season_number}
+                                    overview={last_season.overview}
+                                />}
+                                {/*    End of Card*/}
+
+                                {/*Card - Last episode*/}
+                                {last_episode_to_air && <EpisodeSeasonCard
+                                    title="Last Episode"
+                                    type="episode"
+                                    image={last_episode_to_air.still_path}
+                                    name={last_episode_to_air.name}
+                                    poster_path={poster_path}
+                                    date={last_episode_to_air.air_date}
+                                    number={last_episode_to_air.episode_number}
+                                    overview={last_episode_to_air.overview}
+                                />}
+                                {/*    End of Card*/}
+
+                                {/*Card - Next- episode*/}
+                                {next_episode_to_air && <EpisodeSeasonCard
+                                    title="Next Episode"
+                                    image={next_episode_to_air.still_path}
+                                    name={next_episode_to_air.name}
+                                    poster_path={poster_path}
+                                    date={next_episode_to_air.air_date}
+                                    number={next_episode_to_air.episode_number}
+                                    overview={next_episode_to_air.overview}
+                                />}
+                                {/*    End of Card*/}
+
+
+                            </div>
+                        )
+                    }
+
+
                 </div>
-
-
-                {/*Extra information about shows */}
-                {
-                    mediaType === "tv" && (
-                        <div className="mt-12 flex items-center gap-8 pb-5 overflow-x-auto">
-
-                            {/*Card - Current Season */}
-                            {last_season && <EpisodeSeasonCard
-                                title="Current Season"
-                                type="season"
-                                image={last_season.poster_path}
-                                name={last_season.name}
-                                poster_path={poster_path}
-                                date={last_season.air_date}
-                                number={last_season.season_number}
-                                overview={last_season.overview}
-                            />}
-                            {/*    End of Card*/}
-
-                            {/*Card - Last episode*/}
-                            {last_episode_to_air && <EpisodeSeasonCard
-                                title="Last Episode"
-                                type="episode"
-                                image={last_episode_to_air.still_path}
-                                name={last_episode_to_air.name}
-                                poster_path={poster_path}
-                                date={last_episode_to_air.air_date}
-                                number={last_episode_to_air.episode_number}
-                                overview={last_episode_to_air.overview}
-                            />}
-                            {/*    End of Card*/}
-
-                            {/*Card - Next- episode*/}
-                            {next_episode_to_air && <EpisodeSeasonCard
-                                title="Next Episode"
-                                image={next_episode_to_air.still_path}
-                                name={next_episode_to_air.name}
-                                poster_path={poster_path}
-                                date={next_episode_to_air.air_date}
-                                number={next_episode_to_air.episode_number}
-                                overview={next_episode_to_air.overview}
-                            />}
-                            {/*    End of Card*/}
-
-
-                        </div>
-                    )
-                }
-
 
             </div>
 
-        </div>
+            {/*Recommendations and similar section*/}
+            <div className="md:px-16 mb-6">
 
-            {/*Recommended Movies*/}
-            {
-                recommendations?.results.length > 0 && <div className="mt-10">
-                    <div className="mt-4">
-                        <MediaSlider
-                            title="AI Picked For You"
-                            mediaType={mediaType}
-                            queryKey={
-                                [`recommended-${mediaType}`, id]
-                            }
-                            queryFn={
-                                () => getRecommendedMedias(mediaType, id)
-                            }
-                        />
+                {/*Recommended Movies*/}
+                {
+                    recommendations?.results.length > 0 && <div className="mt-10">
+                        <div className="mt-4">
+                            <MediaSlider
+                                title="AI Picked For You"
+                                mediaType={mediaType}
+                                queryKey={
+                                    [`recommended-${mediaType}`, id]
+                                }
+                                queryFn={
+                                    () => getRecommendedMedias(mediaType, id)
+                                }
+                            />
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
-            {/*    Similar Movies */}
-            {
-                similar?.results.length > 0 && <div className="mt-6">
-                    <div className="mt-4">
-                        <MediaSlider
-                            title={`More ${mediaType === "movie" ? "Movies" : "TV Shows"} Like This`}
-                            mediaType={mediaType}
-                            queryKey={
-                                [`similar-${mediaType}`, id]
-                            }
-                            queryFn={
-                                () => getSimilarMedias(mediaType, id)
-                            }
-                        />
+                {/*    Similar Movies */}
+                {
+                    similar?.results.length > 0 && <div className="mt-6">
+                        <div className="mt-4">
+                            <MediaSlider
+                                title={`More ${mediaType === "movie" ? "Movies" : "TV Shows"} Like This`}
+                                mediaType={mediaType}
+                                queryKey={
+                                    [`similar-${mediaType}`, id]
+                                }
+                                queryFn={
+                                    () => getSimilarMedias(mediaType, id)
+                                }
+                            />
+                        </div>
                     </div>
-                </div>
-            }
+                }
 
+            </div>
         </>
     );
 }
