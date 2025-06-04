@@ -8,12 +8,14 @@ import Home from "./pages/Home.jsx";
 import MediaDetails from "./pages/MediaDetails.jsx";
 
 import TrailerProvider from "./contexts/trailerProvider.jsx";
+import Search from "./pages/Search.jsx";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="/details/:media/:id" element={<MediaDetails />} />
+            <Route path="/search" element={<Search />} />
         </Route>
     )
 )

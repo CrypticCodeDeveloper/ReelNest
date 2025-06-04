@@ -1,10 +1,15 @@
-import {useState, useContext} from "react";
+import {useContext} from "react";
 import {SearchContext} from "../contexts/searchProvider.jsx";
 import { CiSearch, CiCircleRemove  } from "react-icons/ci";
+import {useNavigate} from "react-router-dom";
+import {useRef} from "react";
 
 const Search = () => {
 
+    const navigate = useNavigate();
     const {isOpen, setIsOpen} = useContext(SearchContext)
+
+    const searchRef = useRef(null);
 
     return (
         <div className="flex items-center gap-3">
@@ -15,9 +20,10 @@ const Search = () => {
 
                 {isOpen &&
                     <input type="text" placeholder="movies, shows, people ... "
+                           ref={searchRef}
                            className="focus:outline-none placeholder:text-gray-100 text-xs sm:text-sm max-sm:max-w-[70px]"/>}
 
-                <CiSearch className="size-5"/>
+                <CiSearch className="size-5" onClick={() => isOpen && navigate(`/search?search=${searchRef.current.value}`)}/>
 
             </div>
             {isOpen && <CiCircleRemove
