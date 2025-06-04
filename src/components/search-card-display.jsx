@@ -14,9 +14,11 @@ const SearchCardDisplay = ({ movie }) => {
     return (
         <>
             <div className="flex gap-3">
-                <div className="w-[120px] h-[120px] overflow-hidden hover:*:scale-110 cursor-pointer">
+
+                <div className="w-[120px] h-[120px] min-w-[120px] min-h-[120px] overflow-hidden hover:*:scale-110 cursor-pointer">
                     <img className="h-full w-full object-cover aspect-auto transition-all" src={poster} alt={title}/>
                 </div>
+
                 <div className="">
                     <h1 className="mb-2 flex gap-3">
                         <span className="font-bold text-sm md:text-lg max-w-[400px] max-sm:max-w-[200px]">{title}</span>
