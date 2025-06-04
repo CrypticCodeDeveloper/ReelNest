@@ -13,7 +13,7 @@ const EpisodeSeasonCard = ({
     return (
         <div>
             <h1 className="text-xl mb-3">{title}</h1>
-            <div className="w-[500px] h-[200px]  rounded-md glass flex shadow-xl overflow-hidden ">
+            <div className="w-[500px] h-[200px] max-md:w-[420px]  rounded-md glass flex shadow-xl overflow-hidden ">
 
                 <div className="w-[180px] min-w-[150px] h-full ">
                     <img

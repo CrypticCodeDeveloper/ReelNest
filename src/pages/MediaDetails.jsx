@@ -69,6 +69,7 @@ const MediaDetails = () => {
     ];
 
     return (
+        <>
         <div className="min-h-screen w-full flex-center pb-5 relative">
             {/*Trailer Popup*/}
             {isTrailerPopupOpen && trailerKey && <TrailerPopup
@@ -106,24 +107,7 @@ const MediaDetails = () => {
                         <section className="flex max-sm:flex-col w-full justify-between gap-6 border-b border-neutral-400 pb-5">
 
                             <div>
-                                <h1 className="text-2xl font-medieval-sharp">{title}</h1>
-                                <p className="text-sm  text-neutral-200 mt-2">{tagline}</p>
-
-                                {/**/}
-                                <div
-                                    className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-3">
-                                    <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} / 5</p>
-                                    <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
-                                    {/* genres */}
-                                    <div className="text-xs flex items-center gap-4">
-                                        {
-                                            genres.slice(0, 3).map((genre, index) => (
-                                                <span key={index} >{genre.name}</span>
-                                            ))
-                                        }
-                                    </div>
-                                    {/*    genres end*/}
-                                    {/* Tv show stats   */}
+                                <h1 className="text-2xl font-medieval-sharp">{title}
                                     {
                                         mediaType === "tv" && (
                                             <div
@@ -133,6 +117,25 @@ const MediaDetails = () => {
                                             </div>
                                         )
                                     }
+                                </h1>
+                                <p className="text-sm  text-neutral-200 mt-2">{tagline}</p>
+
+                                {/**/}
+                                <div
+                                    className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-4">
+                                    <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} </p>
+                                    <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
+                                    {/* genres */}
+                                    <div className="text-xs flex items-center gap-4">
+                                        {
+                                            genres.slice(0, 2).map((genre, index) => (
+                                                <span key={index} >{genre.name}</span>
+                                            ))
+                                        }
+                                    </div>
+                                    {/*    genres end*/}
+                                    {/* Tv show stats   */}
+
                                 </div>
 
                                 {/* Other movie details - casts, production companies ...    */}
@@ -212,45 +215,48 @@ const MediaDetails = () => {
                     )
                 }
 
-                {/*Recommended Movies*/}
-                {
-                    recommendations?.results.length > 0 && <div className="mt-10">
-                        <div className="mt-4">
-                            <MediaSlider
-                                title="AI Picked For You"
-                                mediaType={mediaType}
-                                queryKey={
-                                    [`recommended-${mediaType}`, id]
-                                }
-                                queryFn={
-                                    () => getRecommendedMedias(mediaType, id)
-                                }
-                            />
-                        </div>
-                    </div>
-                }
-
-                {/*    Similar Movies */}
-                {
-                    similar?.results.length > 0 && <div className="mt-6">
-                        <div className="mt-4">
-                            <MediaSlider
-                                title={`More ${mediaType === "movie" ? "Movies" : "TV Shows"} Like This`}
-                                mediaType={mediaType}
-                                queryKey={
-                                    [`similar-${mediaType}`, id]
-                                }
-                                queryFn={
-                                    () => getSimilarMedias(mediaType, id)
-                                }
-                            />
-                        </div>
-                    </div>
-                }
 
             </div>
 
         </div>
+
+            {/*Recommended Movies*/}
+            {
+                recommendations?.results.length > 0 && <div className="mt-10">
+                    <div className="mt-4">
+                        <MediaSlider
+                            title="AI Picked For You"
+                            mediaType={mediaType}
+                            queryKey={
+                                [`recommended-${mediaType}`, id]
+                            }
+                            queryFn={
+                                () => getRecommendedMedias(mediaType, id)
+                            }
+                        />
+                    </div>
+                </div>
+            }
+
+            {/*    Similar Movies */}
+            {
+                similar?.results.length > 0 && <div className="mt-6">
+                    <div className="mt-4">
+                        <MediaSlider
+                            title={`More ${mediaType === "movie" ? "Movies" : "TV Shows"} Like This`}
+                            mediaType={mediaType}
+                            queryKey={
+                                [`similar-${mediaType}`, id]
+                            }
+                            queryFn={
+                                () => getSimilarMedias(mediaType, id)
+                            }
+                        />
+                    </div>
+                </div>
+            }
+
+        </>
     );
 }
 export default MediaDetails;
