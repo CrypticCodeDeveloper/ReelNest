@@ -31,7 +31,7 @@ function App() {
                     <RouterProvider router={router}/>
                 </TrailerProvider>
                 <Toaster
-                    position="top-right"
+                    position="bottom-right"
                     toastOptions={
                         {
                             style: {
