@@ -15,7 +15,6 @@ import EpisodeSeasonCard from "../components/movie-details/episode-season-card.j
 import TrailerPopup from "../components/trailer-popup.jsx";
 import toast from "react-hot-toast"
 
-
 const MediaDetails = () => {
     const {media: mediaType, id} = useParams();
     const {isTrailerPopupOpen, setIsTrailerPopupOpen} = useContext(TrailerContext);
@@ -92,6 +91,7 @@ const MediaDetails = () => {
                 {/*    Details*/}
                 <div className="w-[90%]  mt-[40vh]">
 
+
                     <div className="border-b border-neutral-400 w-full flex-between pb-3">
                         <h1
                             className="text-2xl font-medieval-sharp"
@@ -101,14 +101,13 @@ const MediaDetails = () => {
                     <div className="mt-4 flex gap-5 max-lg:flex-col">
 
                         <PosterActions poster_path={poster_path}/>
-
                         <div className="w-full">
                             {/*    More media info */}
                             <section
                                 className="flex max-sm:flex-col w-full justify-between gap-6 border-b border-neutral-400 pb-5">
 
                                 <div>
-                                    <h1 className="text-2xl font-medieval-sharp">{title}
+                                    <h1 className="text-2xl"><span className="font-medieval-sharp">{title}</span>
                                         {
                                             mediaType === "tv" && (
                                                 <div
@@ -123,7 +122,7 @@ const MediaDetails = () => {
 
                                     {/**/}
                                     <div
-                                        className="border-t border-b border-neutral-600 w-full py-1 mt-3 flex items-center gap-4">
+                                        className="border-t border-b border-neutral-600 w-full py-1 mt-4 flex items-center gap-4">
                                         <p className="max-sm:text-xs">{(vote_average / 2).toFixed(2)} </p>
                                         <StarRate vote_average={parseInt(vote_average).toFixed(1)} star_size="10px"/>
                                         {/* genres */}

@@ -1,4 +1,5 @@
 import React from 'react'
+import {CommentSection} from "../comment-section.jsx";
 
 const PosterActions = ({poster_path}) => {
     return (
@@ -7,9 +8,7 @@ const PosterActions = ({poster_path}) => {
                 <img src={poster_path}
                      className="w-full h-full object-cover" alt="" />
             </div>
-            <button className="w-full h-[50px] glass mt-4 hover:bg-white/20 transition-all">
-                Show Comments
-            </button>
+            <CommentSection />
         </div>
     )
 }
