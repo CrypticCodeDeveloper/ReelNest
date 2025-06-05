@@ -3,6 +3,7 @@ import {SearchContext} from "../contexts/searchProvider.jsx";
 import { CiSearch, CiCircleRemove  } from "react-icons/ci";
 import {useNavigate} from "react-router-dom";
 import {useRef} from "react";
+import toast from "react-hot-toast"
 
 const Search = () => {
 
@@ -12,8 +13,14 @@ const Search = () => {
     const searchRef = useRef(null);
 
     const searchMedia = () => {
-        navigate(`/search?search=${searchRef.current.value}`)
-        searchRef.current.value = ""
+        if (searchRef.current.value.trim() !== "" ){
+            navigate(`/search?search=${searchRef.current.value}`)
+            searchRef.current.value = ""
+        } else {
+            toast("Please input a search query", {
+
+            })
+        }
     }
 
     return (

@@ -9,6 +9,9 @@ import { FaCaretDown } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 
 import {useMediaQuery} from "react-responsive";
+import PersonCardDisplay from "../components/person-card-display.jsx";
+
+import {DotLottieReact} from "@lottiefiles/dotlottie-react";
 
 const Search = () => {
 
@@ -70,26 +73,38 @@ const Search = () => {
             </div>
 
             {/* Search display */}
-            <div className="relative z-10 flex max-lg:flex-col-reverse max-lg:items-center justify-center gap-12 max-lg:gap-8 px-8">
+            <div
+                className="relative z-10 flex max-lg:flex-col-reverse max-lg:items-center justify-center gap-12 max-lg:gap-8 px-8">
                 <div className="">
                     <h1 className="text-sm uppercase tracking-wide">{searchTerm ? `Showing Matches for "${searchTerm}"` : "Most searched movies"}</h1>
                     <div className="h-[1px] w-full bg-neutral-400 mt-2 mb-6"></div>
-                    <div className="grid gap-10">
-                        {
-                            medias.map((media) => (
-                                <>
-                                    {
-                                        currentFilterValue === "person" ?
-                                            <p>People</p> :
-                                            <SearchCardDisplay
-                                                type={currentFilterValue}
-                                                media={media}
-                                            />
-                                    }
-                                </>
-                            ))
-                        }
-                    </div>
+                    {
+                        medias?.length > 0 ? <div className="grid gap-10">
+                                {
+                                    medias.map((media) => (
+                                        <>
+                                            {
+                                                currentFilterValue === "person" ?
+                                                    <PersonCardDisplay person={media}/> :
+                                                    <SearchCardDisplay
+                                                        type={currentFilterValue}
+                                                        media={media}
+                                                    />
+                                            }
+                                        </>
+                                    ))
+                                }
+                            </div> :
+                            <div className="flex flex-col items-center">
+                                <DotLottieReact
+                                    src="/no-search-found.lottie"
+                                    loop
+                                    className="w-[400px]"
+                                    autoplay
+                                />
+                                <p className="mt-4 font-semibold text-lg">No search found</p>
+                            </div>
+                    }
                 </div>
 
                 {/*Filter search*/}
@@ -99,9 +114,9 @@ const Search = () => {
                     <div
                         onClick={() => setSearchFilterVisible(prevState => !prevState)}
                         className="h-[40px] w-full glass mb-3 hidden max-lg:flex items-center justify-between px-4 uppercase
-                        hover:text-white/20 transition-all">
+                        hover:bg-white/20 transition-all">
                         <p>Showing results for <span className="font-semibold">{currentFilterValue}</span></p>
-                        {searchFilterVisible ? < IoMdClose /> : <FaCaretDown />}
+                        {searchFilterVisible ? < IoMdClose/> : <FaCaretDown/>}
                     </div>
                     {/**/}
 
