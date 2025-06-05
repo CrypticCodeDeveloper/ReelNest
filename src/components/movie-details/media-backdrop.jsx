@@ -18,7 +18,7 @@ const MediaBackdrop = ({
             <div className="w-full h-full bg-black/30 absolute -z-10"></div>
             {/**/}
             <img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-                 className="w-full h-full object-cover absolute -z-20" alt={title}/>
+                 className="w-full h-full object-cover absolute -z-20" alt="" />
             <div
                 className="h-[60px] w-full bottom-0 -z-20 absolute bg-gradient-to-b from-[rgba(0,0,0,0)] to-[rgba(0,0,0,1)]"></div>
         </div>

@@ -13,7 +13,7 @@ const TrailerPopup = ({title, videoKey}) => {
             <div className="relative glass rounded-lg w-[80%] max-w-[800px] p-4">
                <div className="flex-between">
                    {/*Title*/}
-                   <h1 className="font-semibold text-xl max-w-[500px]  truncate">
+                   <h1 className="font-semibold text-sm md:text-lg lg:text-xl max-w-[400px] md:max-w-[500px]  truncate">
                        {title ? title : "Play Video"}
                    </h1>
                    {/* Close Icon */}

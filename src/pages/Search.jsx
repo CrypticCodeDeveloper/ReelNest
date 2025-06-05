@@ -4,14 +4,13 @@ import SearchCardDisplay from "../components/search-card-display.jsx";
 import React, {useState} from "react";
 import {useLocation} from "react-router-dom";
 
-import { MdOutlineLocalMovies, MdOutlineMovie, MdOutlinePeopleAlt  } from "react-icons/md";
-import { FaCaretDown } from "react-icons/fa";
-import { IoMdClose } from "react-icons/io";
+import {MdOutlineLocalMovies, MdOutlineMovie, MdOutlinePeopleAlt} from "react-icons/md";
 
-import {useMediaQuery} from "react-responsive";
 import PersonCardDisplay from "../components/person-card-display.jsx";
 
-import {DotLottieReact} from "@lottiefiles/dotlottie-react";
+import GeneralBackdrop from "../components/general-backdrop.jsx";
+import NoSearchFound from "../components/no-search-found.jsx";
+import FilterSearch from "../components/filter-search.jsx";
 
 const Search = () => {
 
@@ -20,13 +19,8 @@ const Search = () => {
     const searchTerm = queryParams.get("search") || "";
     const [currentFilterValue, setCurrentFilterValue] = useState("movie")
 
-    const isMobile = useMediaQuery({
-        maxWidth: 767
-    })
 
-    const [searchFilterVisible, setSearchFilterVisible] = useState(!isMobile)
-
-    const {data: medias } = useSuspenseQuery({
+    const {data: medias} = useSuspenseQuery({
         queryKey: ["search", currentFilterValue, searchTerm],
         queryFn: () => {
             if (searchTerm) {
@@ -62,84 +56,52 @@ const Search = () => {
     return (
         <div className="w-full mt-[16vh] pb-10">
 
-            {/*Backdrop*/}
-            <div className="h-[60vh] w-full fixed top-0 -z-30">
-                {/*Overlay*/}
-                <div className="w-full h-full bg-black/70 absolute"></div>
-                <img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
-                     className="w-full h-full object-cover" alt=""/>
-                <div
-                    className="h-[60px] w-full bottom-0 absolute bg-gradient-to-b from-[rgba(0,0,0,0)] to-[rgba(0,0,0,1)]"></div>
-            </div>
+            <GeneralBackdrop backdrop_path={backdrop_path}/>
 
             {/* Search display */}
             <div
-                className="relative z-10 flex max-lg:flex-col-reverse max-lg:items-center justify-center gap-12 max-lg:gap-8 px-8">
+                className="relative z-10 flex max-lg:flex-col-reverse
+                max-lg:items-center justify-center gap-12 max-lg:gap-8 px-8">
+
                 <div className="">
-                    <h1 className="text-sm uppercase tracking-wide">{searchTerm ? `Showing Matches for "${searchTerm}"` : "Most searched movies"}</h1>
+
+                    <h1 className="text-sm uppercase tracking-wide">
+                        {searchTerm ?
+                            `Showing Matches for "${searchTerm}"`
+                            : "No search Term"}
+                    </h1>
+
                     <div className="h-[1px] w-full bg-neutral-400 mt-2 mb-6"></div>
                     {
                         medias?.length > 0 ? <div className="grid gap-10">
-                                {
-                                    medias.map((media) => (
-                                        <>
-                                            {
-                                                currentFilterValue === "person" ?
-                                                    <PersonCardDisplay person={media}/> :
-                                                    <SearchCardDisplay
-                                                        type={currentFilterValue}
-                                                        media={media}
-                                                    />
-                                            }
-                                        </>
-                                    ))
-                                }
-                            </div> :
-                            <div className="flex flex-col items-center">
-                                <DotLottieReact
-                                    src="/no-search-found.lottie"
-                                    loop
-                                    className="w-[400px]"
-                                    autoplay
-                                />
-                                <p className="mt-4 font-semibold text-lg">No search found</p>
-                            </div>
+                            {
+                                medias.map((media) => (
+                                    <>
+                                        {
+                                            currentFilterValue === "person" ?
+                                                <PersonCardDisplay person={media}/> :
+                                                <SearchCardDisplay
+                                                    type={currentFilterValue}
+                                                    media={media}
+                                                />
+                                        }
+                                    </>
+                                ))
+                            }
+                        </div> : <NoSearchFound/>
+
                     }
                 </div>
 
-                {/*Filter search*/}
-                <div className="flex flex-col items-center justify-between w-[340px]">
+                {/* Filter movies */}
+                <FilterSearch
+                    currentFilterValue={currentFilterValue}
+                    filters={filters}
+                    setCurrentFilterValue={setCurrentFilterValue}
+                />
 
-                    {/*mobile filter dropdown*/}
-                    <div
-                        onClick={() => setSearchFilterVisible(prevState => !prevState)}
-                        className="h-[40px] w-full glass mb-3 hidden max-lg:flex items-center justify-between px-4 uppercase
-                        hover:bg-white/20 transition-all">
-                        <p>Showing results for <span className="font-semibold">{currentFilterValue}</span></p>
-                        {searchFilterVisible ? < IoMdClose/> : <FaCaretDown/>}
-                    </div>
-                    {/**/}
-
-                    {searchFilterVisible && <div className="h-[85vh] w-full glass ml-3 p-4">
-                        <h2 className="uppercase font-bold">Show results for</h2>
-                        <div className="mt-4 space-y-1">
-                            {
-                                filters.map((filter) => (
-                                    <span key={filter.value}
-                                          onClick={() => setCurrentFilterValue(filter.value)}
-                                          className={`flex items-center gap-2 text-lg p-1 cursor-pointer 
-                                      ${currentFilterValue === filter.value && 'glass'}`}
-                                    >
-                                    < filter.icon/>
-                                        {filter.label}
-                                </span>
-                                ))
-                            }
-                        </div>
-                    </div>}
-
-                </div>
             </div>
+
             {/*  Search display end  */}
         </div>
     );

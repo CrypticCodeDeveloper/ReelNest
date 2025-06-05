@@ -67,7 +67,7 @@ const HeroMediaSlider = () => {
                             <SwiperSlide key={id} className="h-full !flex items-center relative">
 
 
-                                <div className="w-full h-full bg-black/20 absolute -z-0"></div>
+                                <div className="w-full h-full bg-black/50 absolute -z-0"></div>
 
                                 <img src={`https://image.tmdb.org/t/p/original/${backdrop_path}`}
                                      className="w-full h-full object-cover absolute -z-10" alt={original_title}/>

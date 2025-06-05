@@ -2,7 +2,6 @@
 const Gallery = ({images}) => {
 
     const imgs = images.slice(1,4)
-    console.log("images", imgs)
     const firstImage = imgs[0]?.file_path ? imgs[0].file_path : images[0]?.file_path
     const secondImage = imgs[1]?.file_path
     const thirdImage = imgs[2]?.file_path

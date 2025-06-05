@@ -90,9 +90,9 @@ const MediaDetails = () => {
                 {/*    section ended*/}
 
                 {/*    Details*/}
-                <div className="w-[80%]  mt-[40vh]">
+                <div className="w-[90%]  mt-[40vh]">
 
-                    <div className="border-b border-neutral-300 w-full flex-between pb-3">
+                    <div className="border-b border-neutral-400 w-full flex-between pb-3">
                         <h1
                             className="text-2xl font-medieval-sharp"
                         >{title} ({release_date.split('-')[0]})</h1>
