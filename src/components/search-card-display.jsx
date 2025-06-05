@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
-const SearchCardDisplay = ({ movie }) => {
-    const { title, poster_path, overview, release_date } = movie;
-    const release_year = release_date.split("-")[0];
+const SearchCardDisplay = ({ media, type }) => {
+
+    const navigate = useNavigate();
+
+    const { poster_path, overview} = media;
+
+    const title = type === "movie" ? media.title : media.name;
+    const release_year = type === "movie" ? media.release_date.split("-")[0] : media.first_air_date.split("-")[0];
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleReadMore = () => {
@@ -15,13 +22,19 @@ const SearchCardDisplay = ({ movie }) => {
         <>
             <div className="flex gap-3">
 
-                <div className="w-[120px] h-[120px] min-w-[120px] min-h-[120px] overflow-hidden hover:*:scale-110 cursor-pointer">
+                <div
+                    onClick={() => navigate(`/details/${type}/${media.id}`)}
+                    className="w-[120px] h-[150px] min-w-[120px] min-h-[150px] border border-neutral-400 overflow-hidden hover:*:scale-110 cursor-pointer">
                     <img className="h-full w-full object-cover aspect-auto transition-all" src={poster} alt={title}/>
                 </div>
 
                 <div className="">
                     <h1 className="mb-2 flex gap-3">
-                        <span className="font-bold text-sm md:text-lg max-w-[400px] max-sm:max-w-[200px]">{title}</span>
+                        <span
+                            onClick={() => navigate(`/details/${type}/${media.id}`)}
+                            className="font-bold text-sm md:text-lg max-w-[400px] max-sm:max-w-[200px]
+                             hover:text-primary cursor-pointer"
+                        >{title}</span>
                         <span className="text-lg md:text-xl font-thin">{release_year}</span>
                     </h1>
                     <p className="text-xs max-w-[500px] text-neutral-300">
