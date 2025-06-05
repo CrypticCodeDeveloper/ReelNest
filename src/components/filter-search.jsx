@@ -33,7 +33,7 @@ const FilterSearch = ({
 
 
             {searchFilterVisible &&
-                <div className="h-[85vh] w-full glass ml-3 p-4">
+                <div className="h-fit w-full glass ml-3 p-4">
                     <h2 className="uppercase font-bold">Show results for</h2>
                     <div className="mt-4 space-y-1">
                         {
@@ -41,7 +41,7 @@ const FilterSearch = ({
                                 <span key={filter.value}
                                       onClick={() => {
                                           setCurrentFilterValue(filter.value)
-                                          setSearchFilterVisible(false)
+                                          setSearchFilterVisible(!isMobile)
                                       }}
                                       className={`flex items-center gap-2 text-lg p-1 cursor-pointer 
                                       ${currentFilterValue === filter.value && 'glass'}`}

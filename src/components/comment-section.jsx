@@ -15,9 +15,9 @@ export const CommentSection = () => {
         <div className="w-full">
             <Drawer className="w-full">
                 <DrawerTrigger className="w-full">
-                    <button className="w-full h-[50px] glass mt-4 hover:bg-white/20 transition-all">
+                    <div className="w-full h-[50px] glass mt-4 hover:bg-white/20 transition-all flex-center">
                         Show Comments
-                    </button>
+                    </div>
                 </DrawerTrigger>
                 <DrawerContent>
                     <DrawerHeader>
